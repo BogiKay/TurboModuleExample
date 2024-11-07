@@ -6,9 +6,18 @@
  */
 
 import React, {useEffect, useState} from 'react';
-import {Button, SafeAreaView, StyleSheet, Text, TextInput} from 'react-native';
+import {
+  Alert,
+  Button,
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+} from 'react-native';
 
 import NativeLocalStorage from './specs/NativeLocalStorage';
+import WebView from './specs/WebViewNativeComponent';
 
 const EMPTY = '<empty>';
 
@@ -49,6 +58,15 @@ function App(): React.JSX.Element {
       <Button title="Save" onPress={saveValue} />
       <Button title="Delete" onPress={deleteValue} />
       <Button title="Clear" onPress={clearAll} />
+      <View style={styles.container}>
+        <WebView
+          sourceURL="https://react.dev/"
+          style={styles.webview}
+          onScriptLoaded={() => {
+            Alert.alert('Page Loaded');
+          }}
+        />
+      </View>
     </SafeAreaView>
   );
 }
@@ -66,6 +84,15 @@ const styles = StyleSheet.create({
     paddingLeft: 5,
     paddingRight: 5,
     borderRadius: 5,
+  },
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    alignContent: 'center',
+  },
+  webview: {
+    width: '100%',
+    height: '100%',
   },
 });
 
